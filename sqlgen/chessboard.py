@@ -75,3 +75,7 @@ print(insert('pieces_types', [type.to_sql_tuple() for type in types_from_board()
 print('Pieces:')
 
 print(insert('pieces', [piece.to_sql_tuple() for piece in pieces_from_board()]))
+
+
+print(pieces_from_board())
+print(chessboard[1, 1])
