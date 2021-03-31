@@ -5,13 +5,15 @@ create or replace function get_piece_by_id(piece_id pieces.type_id%type)
                 x     pieces.x%type,
                 y     pieces.y%type
             )
-    language sql
+    language plpgsql
 as
 $$
-select pt.color as color, pieces.x as x, pieces.y as y
-from pieces
-         inner join piece_types pt on pt.id = pieces.type_id
-where pieces.type_id = piece_id;
+begin
+    return query (select pt.color as color, pieces.x as x, pieces.y as y
+                  from pieces
+                           inner join piece_types pt on pt.id = pieces.type_id
+                  where pieces.type_id = piece_id);
+end;
 $$;
 
 create or replace function get_piece_coordinates(
@@ -36,14 +38,17 @@ create or replace function get_piece_by_coordinates(
                 id    pieces.type_id%type,
                 color piece_types.color%type
             )
-    language sql
+    language plpgsql
 as
 $$
-select pieces.type_id as id, pt.color as color
-from pieces
-         inner join piece_types pt on pt.id = pieces.type_id
-where pieces.x = xx
-  and pieces.y = yy
+begin
+    return query (select pieces.type_id as id, pt.color as color
+                  from pieces
+                           inner join piece_types pt on pt.id = pieces.type_id
+                  where pieces.x = xx
+                    and pieces.y = yy);
+end;
+
 $$;
 
 
@@ -86,4 +91,4 @@ begin
 end;
 $$;
 
-call move_piece_no_constraints(0, 0, 6);
+call move_piece_no_constraints(0, 0, 7);
