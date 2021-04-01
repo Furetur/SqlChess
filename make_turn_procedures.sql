@@ -91,4 +91,4 @@ begin
 end;
 $$;
 
-call move_piece_no_constraints(0, 0, 7);
+call move_piece_no_constraints(0, 1, 6);
